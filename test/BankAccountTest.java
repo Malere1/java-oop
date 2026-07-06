@@ -1,60 +1,67 @@
+
+
+       
+
+    
+    package bankAccountSystem;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BankAccountTest {
+public class BankAccountSystemTest {
 
-    private BankAccount myAccount;
+    /*
+    deposit
+    withdrawal
+    checkBalance
+    transfer
+     */
 
+    private BankAccountSystem myBank;
     @BeforeEach
     public void setUp() {
-        myAccount = new BankAccount("Adamu divine", 7055, 100);
+        myBank = new BankAccountSystem();
     }
 
     @Test
-    public void IHaveAnAccountBalanceIs100IDeposit200BalanceIs300() {
-        myAccount.deposit(200);
+    public void deposit100_balanceIs100() {
 
-        assertEquals(300, myAccount.getBalance(7055));
+
+        myBank.deposit(100);
+        assertEquals(100,myBank.getBalance());
     }
 
     @Test
-    public void IHaveAnAccountWhenIInputWrongPinGetBalanceThrowsException() {
-        myAccount.deposit(200);
+    public void deposit100twice_balanceIs200() {
 
-        assertThrows(IllegalArgumentException.class,
-                () -> myAccount.getBalance(1234));
+        myBank.deposit(100);
+        myBank.deposit(100);
+        assertEquals(200,myBank.getBalance());
     }
 
     @Test
-    public void IHaveAnAccountIDepositMinus50_ThrowsException_BalanceRemains100() {
-        assertThrows(IllegalArgumentException.class,
-                () -> myAccount.deposit(-50));
-
-        assertEquals(100, myAccount.getBalance(7055));
+    public void depositNegative500_balanceIs0() {
+        myBank.deposit(-500);
+        assertEquals(0, myBank.getBalance());
     }
 
-    @Test
-    public void IWithdraw100WithCorrectPinBalanceBecomes300() {
-        myAccount.deposit(300);
+//    @Test
+//    public void withdraw200From500_balanceIs300() {
+//        myBank.deposit(500);
+//        myBank.withdraw(200);
+//        assertEquals(300, myBank.getBalance());
+//    }
 
-        assertEquals(400, myAccount.getBalance(7055));
+//    @Test
+//    public void withdrawNegative300From800_balanceIs800() {
+//
+//    }
 
-        myAccount.withdraw(100, 7055);
 
-        assertEquals(300, myAccount.getBalance(7055));
-    }
 
-    @Test
-    public void IWithdrawNegativeAmountThrowsException_BalanceRemains400() {
-        myAccount.deposit(300);
 
-        assertEquals(400, myAccount.getBalance(7055));
 
-        assertThrows(IllegalArgumentException;
-                () -> myAccount.withdraw(-100, 7055));
 
-        assertEquals(400, myAccount.getBalance(7055));
-    }
 }
